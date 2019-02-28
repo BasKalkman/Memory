@@ -1,0 +1,17 @@
+{
+  "name": "memory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "node-sass sass/main.scss css/main.css -w",
+    "compile:sass": "node-sass sass/main.scss css/main.css"
+  },
+  "author": "Bas",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.4.9",
+    "node-sass": "^4.11.0",
+    "postcss-cli": "^6.1.2"
+  }
+}
