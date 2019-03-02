@@ -21,14 +21,16 @@ body {
   padding: 2rem 3rem;
   flex-grow: 1;
 
-  max-width: 80%;
+  max-width: 75%;
   align-self: center;
 
   @include respond(medium) {
     max-width: 90%;
+    padding: 1rem 2rem;
   }
   @include respond(small) {
     max-width: 100%;
+    padding: 0.5rem 0.5rem;
   }
 
   display: flex;

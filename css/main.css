@@ -9,6 +9,12 @@
 
 html {
   font-size: 62.5%; }
+  @media only screen and (max-width: 900px) {
+    html {
+      font-size: 55%; } }
+  @media only screen and (max-width: 600px) {
+    html {
+      font-size: 49%; } }
 
 body {
   box-sizing: border-box;
@@ -35,7 +41,7 @@ body {
   background-color: #e0dbbe;
   padding: 2rem 3rem;
   flex-grow: 1;
-  max-width: 80%;
+  max-width: 75%;
   align-self: center;
   display: flex;
   justify-content: flex-start;
@@ -43,10 +49,12 @@ body {
   flex-wrap: wrap; }
   @media only screen and (max-width: 900px) {
     .game {
-      max-width: 90%; } }
+      max-width: 90%;
+      padding: 1rem 2rem; } }
   @media only screen and (max-width: 600px) {
     .game {
-      max-width: 100%; } }
+      max-width: 100%;
+      padding: 0.5rem 0.5rem; } }
 
 .footer {
   background-color: #9c8d8a;
@@ -71,7 +79,7 @@ body {
   transition: border 0.3s;
   cursor: pointer; }
   .control__button:hover {
-    border: 2px solid #e0dbbe; }
+    border: 3px solid #e0dbbe; }
 
 .copyright {
   color: #040506; }
@@ -87,6 +95,14 @@ body {
   overflow: hidden;
   flex: 0 0 12rem;
   box-shadow: 0 2px 12px rgba(4, 5, 6, 0.8); }
+  @media only screen and (max-width: 900px) {
+    .card {
+      width: 10rem;
+      height: 10rem; } }
+  @media only screen and (max-width: 600px) {
+    .card {
+      width: 6rem;
+      height: 6rem; } }
   .card__side {
     width: 100%;
     height: 100%;
@@ -103,6 +119,12 @@ body {
       font-size: 9rem;
       transform: rotateY(-180deg);
       overflow: hidden; }
+      @media only screen and (max-width: 900px) {
+        .card__side--front {
+          font-size: 7rem; } }
+      @media only screen and (max-width: 600px) {
+        .card__side--front {
+          font-size: 5rem; } }
     .card__side--back {
       background-image: linear-gradient(to right bottom, #233340, #040506);
       color: #f7f9f4; }

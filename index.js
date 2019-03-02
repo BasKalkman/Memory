@@ -3,11 +3,20 @@ TODO:
 CHECK- Create card 
 CHECK- Create Set of chosen icons
 - Random colors per set?
-- Populate board
+CHECK- Populate board
+CHECK- Add listeners
 
 - Click handler for cards (card--clicked)
 - Check if 2 cards match
 - Remove cards from board if match / Return to position if not card--completed
+
+- Reset button functionality
+---- remove listeners, remove cards, re-populate
+
+Number of cards per screen size
+small: 14
+medium: 20
+large: 28
 */
 
 // COLORS
@@ -51,6 +60,7 @@ const icons = [
 
 // CREATE SET
 const createIconSet = num => {
+  // Create a Set of icons to use for the game. Set allows only unique entries.
   let set = new Set();
 
   while (set.size < num) {
@@ -62,7 +72,7 @@ const createIconSet = num => {
 };
 
 // CREATE CARD
-const createCard = () => {
+const createCard = iconName => {
   let newCard = document.createElement('div');
   // TODO: Not clicked
   newCard.classList = 'card card--clicked';
@@ -77,7 +87,8 @@ const createCard = () => {
 
   //Icon
   let icon = document.createElement('i');
-  icon.classList = 'fab fa-amazon';
+  icon.classList = 'fab';
+  icon.classList.add(iconName);
 
   iconSpan.appendChild(icon);
   frontCard.appendChild(iconSpan);
@@ -93,6 +104,45 @@ const createCard = () => {
   return newCard;
 };
 
-// TODO: Remove
-createCard();
-document.getElementsByClassName('game')[0].appendChild(createCard());
+// TODO: Change hardcoded num of cards
+const populateBoard = num => {
+  // Create set of icons, push two of each in the set to array
+  let useIcons = createIconSet(num);
+  let cardArray = [];
+
+  useIcons.forEach(icon => {
+    cardArray.push(createCard(icon));
+    cardArray.push(createCard(icon));
+  });
+
+  // Shuffle created array
+  for (let i = cardArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    let temp = cardArray[i];
+    cardArray[i] = cardArray[j];
+    cardArray[j] = temp;
+  }
+
+  // Populate board with created cards
+  cardArray.forEach(card => document.getElementsByClassName('game')[0].appendChild(card));
+
+  // Set listeners
+  let allCards = document.querySelectorAll('.card');
+  allCards.forEach(card => {
+    card.addEventListener('click', handleCardClick);
+  });
+};
+populateBoard(14);
+
+// CLICK HANDLER
+function handleCardClick() {
+  /*
+  - Previously clicked card?
+  -- Yes: Is it the same card?
+  --- Yes: Completed cards
+      ===> FUNCTION check for completed board
+  --- No: Reset to unclicked
+
+  -- No: Set clicked card
+  */
+}
