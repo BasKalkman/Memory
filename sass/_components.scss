@@ -37,8 +37,10 @@
   position: relative;
   perspective: 150rem;
   cursor: pointer;
-
+  border-radius: 3px;
+  overflow: hidden;
   flex: 0 0 12rem;
+  box-shadow: 0 2px 12px rgba($color-black, 0.8);
 
   &__side {
     width: 100%;
@@ -49,13 +51,15 @@
     transform: rotateY(0);
     color: $color-black;
     backface-visibility: hidden;
-    box-shadow: 0 2px 12px rgba($color-black, 0.8);
-    transition: width 0.3s ease-in 2s, height 0.3s ease-in 2s;
+
+    transition: transform 0.3s, width 0.3s ease-in 2s, height 0.3s ease-in 2s;
 
     &--front {
       background-color: $color-white;
-      color: $color-black;
+      color: $color-mid;
+      font-size: 9rem;
       transform: rotateY(-180deg);
+      overflow: hidden;
     }
 
     &--back {
@@ -89,4 +93,24 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+
+// COLORS
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.purple {
+  color: purple;
+}
+.cyan {
+  color: cyan;
+}
+.yellow {
+  color: yellow;
+}
+.green {
+  color: green;
 }
