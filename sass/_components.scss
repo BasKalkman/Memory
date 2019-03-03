@@ -16,11 +16,15 @@
     font-size: 1.3rem;
     font-weight: bold;
     border: 3px solid transparent;
-    transition: border 0.3s;
+    transition: border 0.3s, transform 0.1s;
     cursor: pointer;
 
     &:hover {
       border: 3px solid $color-light;
+    }
+
+    &:active {
+      transform: scale(0.9);
     }
   }
 }
@@ -35,12 +39,11 @@
   width: 12rem;
   height: 12rem;
   position: relative;
-  perspective: 150rem;
+  perspective: 25rem;
   cursor: pointer;
   border-radius: 3px;
-  overflow: hidden;
   flex: 0 0 12rem;
-  box-shadow: 0 2px 12px rgba($color-black, 0.8);
+  transition: opacity 0.3s;
 
   @include respond(medium) {
     width: 10rem;
@@ -60,8 +63,9 @@
     transform: rotateY(0);
     color: $color-black;
     backface-visibility: hidden;
+    box-shadow: 0 2px 12px rgba($color-black, 0.8);
 
-    transition: transform 0.3s, width 0.3s ease-in 2s, height 0.3s ease-in 2s;
+    transition: transform 0.5s, width 0.3s ease-in 2s, height 0.3s ease-in 2s;
 
     &--front {
       background-color: $color-white;
@@ -100,6 +104,7 @@
 
   &--completed {
     cursor: auto;
+    opacity: 0;
   }
 
   // Content of card
@@ -108,6 +113,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+}
+
+.blocker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  width: 0;
+  height: 0;
+  z-index: 9999;
+
+  &--on {
+    width: 100%;
+    height: 100%;
   }
 }
 

@@ -1,17 +1,6 @@
 /*
 TODO:
-CHECK- Create card 
-CHECK- Create Set of chosen icons
 - Random colors per set?
-CHECK- Populate board
-CHECK- Add listeners
-
-- Click handler for cards (card--clicked)
-- Check if 2 cards match
-- Remove cards from board if match / Return to position if not card--completed
-
-- Reset button functionality
----- remove listeners, remove cards, re-populate
 
 Number of cards per screen size
 small: 14
@@ -74,8 +63,7 @@ const createIconSet = num => {
 // CREATE CARD
 const createCard = iconName => {
   let newCard = document.createElement('div');
-  // TODO: Not clicked
-  newCard.classList = 'card card--clicked';
+  newCard.classList = 'card';
 
   // Front face
   let frontCard = document.createElement('div');
@@ -132,17 +120,76 @@ const populateBoard = num => {
     card.addEventListener('click', handleCardClick);
   });
 };
-populateBoard(14);
 
 // CLICK HANDLER
 function handleCardClick() {
-  /*
-  - Previously clicked card?
-  -- Yes: Is it the same card?
-  --- Yes: Completed cards
-      ===> FUNCTION check for completed board
-  --- No: Reset to unclicked
+  this.classList.add('card--clicked');
 
-  -- No: Set clicked card
-  */
+  let clickedCards = document.querySelectorAll('.card--clicked');
+  if (clickedCards.length === 2) {
+    // Open blocker to stop more clicks
+    document.querySelector('.blocker').classList.add('blocker--on');
+    // Check cards after they're visible
+    setTimeout(checkMatch, 1200);
+  }
 }
+
+// CARD CHECKER
+function checkMatch() {
+  let clickedCards = document.querySelectorAll('.card--clicked');
+  //Get classlist string of icon
+  let icon1 = clickedCards[0].firstChild.firstChild.firstChild.classList.toString();
+  let icon2 = clickedCards[1].firstChild.firstChild.firstChild.classList.toString();
+
+  if (icon1 === icon2) {
+    // If cards match - Set completed
+    clickedCards.forEach(card => {
+      card.classList.add('card--completed');
+      card.classList.remove('card--clicked');
+      card.removeEventListener('click', handleCardClick);
+    });
+  } else {
+    // Then remove clicked class for next pair
+    clickedCards.forEach(card => card.classList.remove('card--clicked'));
+  }
+
+  // Remove blocker
+  document.querySelector('.blocker').classList.remove('blocker--on');
+
+  // Check for completion
+  let cards = document.querySelectorAll('.card');
+  let completedCards = document.querySelectorAll('.card--completed');
+
+  if (cards.length === completedCards.length) {
+    gameCompleted();
+  }
+}
+
+// WIN HANDLER
+function gameCompleted() {
+  //remove listeners
+  document.querySelectorAll('.card').forEach(card => {
+    card.removeEventListener('click', handleCardClick);
+    card.remove();
+  });
+  // Show success message
+  //TODO: Prettier message, restart
+  alert('Completed!');
+}
+
+// RESET FUNCTION
+function resetGame() {
+  //remove listeners
+  document.querySelectorAll('.card').forEach(card => {
+    card.removeEventListener('click', handleCardClick);
+    card.remove();
+  });
+  // TODO: Do something better
+  populateBoard(14);
+}
+
+// RESET Listener
+document.getElementById('js-reset-button').addEventListener('click', resetGame);
+
+// INIT
+populateBoard(14);
